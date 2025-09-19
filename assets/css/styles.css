@@ -1,7 +1,7 @@
 :root{
   --bg: #0f1115;
   --bg-alt: #151923;
-  --card: #1a2030;
+  --card: #ffffffff;
   --text: #e7ecf3;
   --muted: #9aa8bf;
   --brand: #29a36a;
@@ -82,7 +82,7 @@ a{color:inherit; text-decoration:none}
 }
 
 .section{color: #000000da;padding:40px 0}
-.section{background: #ffffffff; border-top:1px solid var(--stroke); border-bottom:1px solid var(--stroke)}
+.section{background: #ffffffff; border-top:4px solid var(--stroke); border-bottom:4px solid var(--stroke)}
 .section--alt{color: #ffffffff;padding:40px 0}
 .section--alt{background: #006837b0; border-top:1px solid var(--stroke); border-bottom:1px solid var(--stroke)}
 
@@ -90,8 +90,8 @@ a{color:inherit; text-decoration:none}
 .grid--2{grid-template-columns:1fr 1fr}
 .grid--5 {  display: grid; grid-template-columns: repeat(5, 1fr);  gap: 30px;}
 
-.card{background: #ffffffff; border:1px solid var(--stroke); border-radius:16px; box-shadow:var(--shadow)}
-.card--photo img{border-radius:16px; border:1px solid var(--stroke)}
+.card{background: #ffffffff; border:0px solid var(--stroke); border-radius:16px; box-shadow:var(--shadow)}
+.card--photo img{border-radius:16px; border:0px solid var(--stroke)}
 .cards{gap:20px}
 
 .icones-servico{ width:120px; height:auto;
@@ -121,11 +121,11 @@ a{color:inherit; text-decoration:none}
 
 .accordion__group{margin:18px 0 26px}
 details{
-  background:var(--card); border:1px solid var(--stroke); border-radius:12px; padding:12px 14px; margin:10px 0;
+  background:var(--card); border:1px solid var(--stroke); border-radius:5px; padding:12px 15px; margin:10px 0;
   transition:transform .2s ease, border-color .2s ease;
 }
 details[open]{transform:translateY(-1px); border-color:#2e3a5c}
-summary{cursor:pointer; font-weight:600; margin:-4px 0 6px}
+summary{cursor:pointer; font-weight:600; margin:-4px 0 0px}
 summary::-webkit-details-marker{display:none}
 summary::after{content:'+'; float:right; transition:transform .2s}
 details[open] summary::after{transform:rotate(45deg)}
