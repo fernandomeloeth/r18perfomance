@@ -165,6 +165,8 @@ details[open] summary::after{transform:rotate(45deg)}
   .nav.show{display:grid}
   .nav__toggle{display:block}
 }
+
+
 @media (max-width: 560px){
   .grid--1{grid-template-columns:1fr}
   .grid--5 { grid-template-columns: 1fr; }
