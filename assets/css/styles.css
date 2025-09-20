@@ -36,8 +36,11 @@ a{color:inherit; text-decoration:none}
 .nav{display:flex; gap:18px; align-items:center}
 .nav a{color: #0f0f0ff5;padding:8px 10px; border-radius:10px; transition:transform .2s ease, background .2s ease}
 .nav a:hover{color: #f5f5f5ff;background:var(--bg-alt); transform:translateY(-1px)}
-.nav__toggle{display:none; background:none; border:0; cursor:pointer}
-.nav__bar{display:block; width:24px; height:2px; background:var(--text); margin:5px 0}
+
+/* mobile menu */
+.nav__toggle{display:none; background:transparent; border:0; width:40px; height:40px}
+.nav__toggle span{display:block; height:2px; background:#111; margin:7px 6px}
+
 
 .hero--cover{
     padding:160px 0 160px; display: flex;  align-items: center;  background:    linear-gradient(0deg, rgba(0,0,0,.35), rgba(0,0,0,.35)),    url("../img/capa-r18.jpg") center/cover no-repeat;
@@ -74,15 +77,16 @@ a{color:inherit; text-decoration:none}
 }
 
 .btn--ghost{
-  border:1px solid #fff;  color:#fff;
+  border:1px solid #929292ff;  color: #fff;
 }
 
 .btn--ghost:hover{
-  background:#fff;  color:#fff;
+  background: #161616ff;  color: #fff;
 }
 
 .section{color: #000000da;padding:40px 0}
 .section{background: #ffffffff; border-top:4px solid var(--stroke); border-bottom:4px solid var(--stroke)}
+.section-{background: #ffffffff; border-top:4px solid var(--stroke); border-bottom:4px solid var(--stroke)}
 .section--alt{color: #ffffffff;padding:40px 0}
 .section--alt{background: #006837b0; border-top:1px solid var(--stroke); border-bottom:1px solid var(--stroke)}
 
@@ -93,6 +97,14 @@ a{color:inherit; text-decoration:none}
 .card{background: #ffffffff; border:0px solid var(--stroke); border-radius:16px; box-shadow:var(--shadow)}
 .card--photo img{border-radius:16px; border:0px solid var(--stroke)}
 .cards{gap:20px}
+.card.service {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card.service:hover {
+  transform: translateY(-6px) scale(1.02);
+}
+
 
 .icones-servico{ width:120px; height:auto;
   display: flex;
@@ -130,29 +142,119 @@ summary::-webkit-details-marker{display:none}
 summary::after{content:'+'; float:right; transition:transform .2s}
 details[open] summary::after{transform:rotate(45deg)}
 
-.cta{background:
-  radial-gradient(800px 200px at 30% 0%, rgba(23,211,126,.15), transparent 60%),
-  var(--bg);
-  border-top:1px solid var(--stroke);
+/* layout */
+.contato__grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  align-items:start;
 }
-.cta__inner{display:grid; gap:14px; text-align:center}
-.btn{
-  display:inline-flex; align-items:center; justify-content:center; gap:8px;
-  padding:12px 18px; border-radius:12px; border:1px solid var(--stroke);
-  transition:transform .15s ease, background .2s ease, border-color .2s ease;
-}
-.btn--primary{background:linear-gradient(180deg, var(--brand-2), var(--brand)); color:#08150f; font-weight:700; border:0}
-.btn--primary:hover{transform:translateY(-1px)}
-.btn--ghost{background:transparent}
-.btn--ghost:hover{background:var(--bg-alt)}
-.btn--sm{padding:8px 12px; font-size:14px}
-.btn--lg{padding:14px 22px; font-size:18px}
 
-.footer{border-top:1px solid var(--stroke); background:#0d1016}
-.footer__inner{display:flex; gap:16px; align-items:center; justify-content:space-between; padding:22px 0}
-.footer__nav{display:flex; gap:14px}
-.footer__nav a{color:var(--muted); font-size:14px}
-.footer__nav a:hover{color:var(--text)}
+#contato {
+  background: #f0f0f0ff;        /* fundo preto */
+  color: #000000da;          /* texto claro */
+  padding: 40px 0;
+}
+
+/* pílula ENDEREÇO */
+.pill{
+  display:inline-block;
+  padding:8px 14px;
+  border-radius:999px;
+  background:#fff;
+  border:1px solid #e6e6e6;
+  box-shadow:0 2px 8px rgba(0,0,0,.06);
+  color:#111;
+  font-weight:700;
+  letter-spacing:.5px;
+  margin-bottom:14px;
+}
+
+/* textos */
+.contato__label{
+  margin:18px 0 6px;
+  font-weight:700;
+  color:#111;
+}
+.contato__field{
+  margin:0 0 8px;
+  color:#222;
+}
+.contato__field a{ color:#111; text-decoration:underline; }
+.contato__maplink{ display:inline-block; margin-top:6px; font-size:14px; }
+
+/* botão WhatsApp */
+.btn.btn--whats{
+  display:inline-flex; align-items:center; justify-content:center;
+  gap:8px; padding:10px 16px; border-radius:20px;
+  background:#25D366; color: #fff; font-weight:700;
+  border:0; box-shadow:0 6px 18px rgba(37,211,102,.25);
+  transition:transform .15s ease, filter .2s ease;
+  margin-top:12px;
+}
+.btn.btn--whats:hover{ transform:translateY(-1px); filter:brightness(1.05); }
+
+/* mapa responsivo */
+.contato__map{
+  width:100%;
+  aspect-ratio: 16 / 11;          /* controla a “altura” do mapa */
+  background:#f2f2f2;
+  border-radius:12px;
+  overflow:hidden;
+  border:1px solid #e6e6e6;
+}
+.contato__map iframe{
+  width:100%; height:100%; border:0;
+}
+
+
+.footer {
+  background: #111;
+  color: #eee;
+  padding: 20px 0;
+  font-size: 14px;
+  text-align: center;
+}
+
+.footer__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.footer__social {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.footer__social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.footer__social a:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.2);
+}
+
+.social-icon {
+  width: 36px;
+  height: 36px;
+  display: block;
+}
+
+.footer__text {
+  line-height: 1.4;
+  color: #aaa;
+}
+
+.footer__text p {
+  margin: 0;
+}
 
 .fab-whatsapp{
   position:fixed; right:18px; bottom:18px; width:56px; height:56px; border-radius:50%;
@@ -173,14 +275,23 @@ details[open] summary::after{transform:rotate(45deg)}
   .hero__inner{grid-template-columns:1fr; text-align:center}
   .nav{position:fixed; inset:60px 0 auto 0; background:#0f1115; padding:12px 4%; display:none; border-bottom:1px solid var(--stroke)}
   .nav.show{display:grid}
+  .nav a{    color: #fff;  }
+  .nav a:hover{    background: rgba(255,255,255,0.12);    color: #fff;  }
   .nav__toggle{display:block}
+
+  
 }
 
 @media (max-width: 700px){
   .grid--5 { grid-template-columns: repeat(2, 1fr)}
+  .contato__grid{ grid-template-columns: 1fr; }
+  .contato__map{ aspect-ratio: 16 / 12; }
 }
 
 @media (max-width: 500px){
   .grid--1{grid-template-columns:1fr}
   .grid--5 { grid-template-columns: 1fr; }
 }
+
+.reveal{opacity:0; transform:translateY(8px); transition:opacity .5s ease, transform .5s ease}
+.reveal.in{opacity:1; transform:none}

@@ -1,5 +1,9 @@
-// Ano dinâmico no rodapé
-document.getElementById('year').textContent = new Date().getFullYear();
+// Ano dinâmico no rodapé (só se existir o elemento)
+const yearEl = document.getElementById('year');
+if (yearEl) {
+  yearEl.textContent = new Date().getFullYear();
+}
+
 
 // Menu mobile
 const toggle = document.querySelector('.nav__toggle');
