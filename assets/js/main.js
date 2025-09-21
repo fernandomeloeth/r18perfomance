@@ -42,21 +42,36 @@ document.querySelectorAll('.section, .card, .service').forEach(el => {
   io.observe(el);
 });
 
-// ===== Carrossel + Miniaturas =====
-(function(){
-  // inicializa todos os carrosseis marcados
-  document.querySelectorAll('[data-carousel]').forEach(setupCarousel);
 
-  function setupCarousel(root){
+// ===== Carrossel (múltiplas instâncias, com diagnóstico) =====
+(function initCarousels(){
+  const carousels = Array.from(document.querySelectorAll('[data-carousel]'));
+  console.log('[Carrossel] encontrados:', carousels.length);
+
+  carousels.forEach((root, idx) => {
+    console.log(`- Carrossel #${idx+1}`, root);
+
     const slides = Array.from(root.querySelectorAll('.carousel__slide'));
     const btnPrev = root.querySelector('.carousel__btn.prev');
     const btnNext = root.querySelector('.carousel__btn.next');
     const dotsWrap = root.querySelector('.carousel__dots');
-    const thumbsWrap = root.querySelector('.carousel__thumbs');
-    if (!slides.length) return;
+
+    // filtra imagens quebradas
+    const validSlides = slides.filter(img => {
+      // se a imagem falhar, este evento dispara
+      img.addEventListener('error', () => {
+        console.error('[Carrossel] imagem não encontrada:', img.src);
+        img.remove(); // remove slide inválido
+      }, { once: true });
+      return true;
+    });
+
+    if (validSlides.length < 2) {
+      console.warn('[Carrossel] menos de 2 slides. Não haverá transição.', validSlides);
+    }
 
     // cria dots
-    const dots = slides.map((_, i) => {
+    const dots = validSlides.map((_, i) => {
       const b = document.createElement('button');
       b.setAttribute('aria-label', `Ir para o slide ${i+1}`);
       dotsWrap.appendChild(b);
@@ -64,33 +79,20 @@ document.querySelectorAll('.section, .card, .service').forEach(el => {
       return b;
     });
 
-    // cria miniaturas a partir dos próprios slides
-    const thumbs = slides.map((s, i) => {
-      const btn = document.createElement('button');
-      btn.className = 'carousel__thumb';
-      btn.type = 'button';
-      const img = document.createElement('img');
-      img.src = s.getAttribute('src');
-      img.alt = s.getAttribute('alt') || `Miniatura ${i+1}`;
-      btn.appendChild(img);
-      thumbsWrap.appendChild(btn);
-      btn.addEventListener('click', () => goTo(i));
-      return btn;
-    });
-
-    let index = Math.max(0, slides.findIndex(s => s.classList.contains('is-active')));
+    let index = Math.max(0, validSlides.findIndex(s => s.classList.contains('is-active')));
+    if (index < 0) index = 0;
     update();
 
     // setas
     btnPrev?.addEventListener('click', () => goTo(index - 1));
     btnNext?.addEventListener('click', () => goTo(index + 1));
 
-    // autoplay (pausa no hover)
+    // autoplay com pausa no hover
     let timer = startAutoplay();
     root.addEventListener('mouseenter', stopAutoplay);
     root.addEventListener('mouseleave', () => timer = startAutoplay());
 
-    // swipe mobile
+    // swipe no mobile
     let startX = 0, deltaX = 0;
     root.addEventListener('touchstart', e => { startX = e.touches[0].clientX; deltaX = 0; }, {passive:true});
     root.addEventListener('touchmove',  e => { deltaX = e.touches[0].clientX - startX; }, {passive:true});
@@ -98,33 +100,14 @@ document.querySelectorAll('.section, .card, .service').forEach(el => {
 
     function prev(){ goTo(index - 1); }
     function next(){ goTo(index + 1); }
-
-    function goTo(i){
-      index = (i + slides.length) % slides.length;
-      update();
-    }
+    function goTo(i){ index = (i + validSlides.length) % validSlides.length; update(); }
 
     function update(){
-      slides.forEach((s, i) => s.classList.toggle('is-active', i === index));
-      dots.forEach((d, i)   => d.classList.toggle('is-active', i === index));
-      thumbs.forEach((t, i) => t.classList.toggle('is-active', i === index));
-      // garante a miniatura ativa visível
-      const active = thumbs[index];
-      if (active && active.scrollIntoView) {
-        active.scrollIntoView({ inline: 'nearest', block: 'nearest', behavior: 'smooth' });
-      }
+      validSlides.forEach((s, i) => s.classList.toggle('is-active', i === index));
+      dots.forEach((d, i)        => d.classList.toggle('is-active', i === index));
     }
 
     function startAutoplay(){ stopAutoplay(); return setInterval(next, 4000); }
     function stopAutoplay(){ if (timer) clearInterval(timer); }
-  }
+  });
 })();
-
-
-
-
-
-// Estilos complementares via JS (opcional): adiciona classe .reveal/.in
-// Coloque no CSS, se quiser transições:
-// .reveal { opacity:0; transform: translateY(10px); transition: .5s ease }
-// .reveal.in { opacity:1; transform:none }

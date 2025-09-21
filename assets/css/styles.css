@@ -148,38 +148,6 @@ a{color:inherit; text-decoration:none}
 }
 .carousel__dots button.is-active{ background: #17d37e; transform:scale(1.2); }
 
-/* Miniaturas (faixa inferior) */
-.carousel__thumbs{
-  position:relative;
-  display:flex; gap:8px; padding:8px;
-  border-top:1px solid rgba(0,0,0,.08);
-  background:rgba(0, 0, 0, 0.79);   /* seção clara */
-  overflow-x:auto; scrollbar-width:thin;
-}
-.carousel__thumbs::-webkit-scrollbar{ height:8px; }
-.carousel__thumbs::-webkit-scrollbar-thumb{ background:rgba(0,0,0,.15); border-radius:4px; }
-
-.carousel__thumb{
-  flex:0 0 auto;
-  width:84px; height:58px;      /* miniatura larga; pode ajustar */
-  border-radius:8px; overflow:hidden;
-  border:2px solid transparent;
-  opacity:.85; transition:transform .15s ease, opacity .15s ease, border-color .15s ease;
-  cursor:pointer;
-}
-.carousel__thumb:hover{ opacity:1; transform:translateY(-2px); }
-.carousel__thumb.is-active{ border-color:#17d37e; opacity:1; }
-
-.carousel__thumb img{
-  width:100%; height:100%; object-fit:cover; display:block;
-}
-
-
-/* Ajuste leve para seções claras (opcional): se sua seção for branca, troque o bg da faixa */
-.section:not(.section--alt) .carousel__thumbs {
-  background: rgba(0,0,0,.06);
-}
-
 
 .cards{gap:20px}
 .card.service {
