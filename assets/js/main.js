@@ -42,6 +42,8 @@ document.querySelectorAll('.section, .card, .service').forEach(el => {
   io.observe(el);
 });
 
+
+
 // Estilos complementares via JS (opcional): adiciona classe .reveal/.in
 // Coloque no CSS, se quiser transições:
 // .reveal { opacity:0; transform: translateY(10px); transition: .5s ease }
