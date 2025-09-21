@@ -106,100 +106,15 @@ a{color:inherit; text-decoration:none}
 .grid--5 {  display: grid; grid-template-columns: repeat(5, 1fr);  gap: 30px;}
 
 .card{background: #ffffffff; border:0px solid var(--stroke); border-radius:16px; box-shadow:var(--shadow)}
-/* garante tamanho consistente e recorte da imagem */
-/* Garante tamanho e recorte da foto */
-/* =======================
-   CARDS DE FOTO (tamanho)
-   ======================= */
-.card--photo{
-  background:#fff;           /* pode trocar para transparent se preferir */
-  border-radius:16px;
-  overflow:hidden;
-  padding:0;
-  aspect-ratio:16 / 11;      /* mantém o mesmo tamanho em todas as telas */
-}
-.card--photo img{
-  width:100%;
-  height:100%;
-  object-fit:cover;           /* preenche sem deformar */
-  display:block;
-  border-radius:0;
+.card--photo img{border-radius:16px; border:0px solid var(--stroke)}
+.cards{gap:20px}
+.card.service {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-/* =======================
-   CARROSSEL (base)
-   ======================= */
-.carousel{ position:relative; }
-.carousel__track,
-.carousel__slide{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
+.card.service:hover {
+  transform: translateY(-6px) scale(1.02);
 }
-.carousel__slide{
-  opacity:0;
-  transition:opacity .4s ease;
-}
-.carousel__slide.is-active{
-  opacity:1;
-}
-
-/* Botões (prev/next) */
-.carousel__btn{
-  position:absolute;
-  top:50%;
-  transform:translateY(-50%);
-  width:36px;
-  height:36px;
-  border-radius:50%;
-  border:0;
-  display:grid;
-  place-items:center;
-  cursor:pointer;
-  background:rgba(0,0,0,.45);
-  color:#fff;
-  font-size:22px;
-  line-height:1;
-  transition:filter .2s ease, transform .15s ease;
-  z-index:2;
-}
-.carousel__btn.prev{ left:10px; }
-.carousel__btn.next{ right:10px; }
-.carousel__btn:hover{ filter:brightness(1.2); transform:translateY(-50%) scale(1.05); }
-.carousel__btn:focus-visible{ outline:2px solid #17d37e; outline-offset:2px; }
-
-/* Dots (indicadores) */
-.carousel__dots{
-  position:absolute;
-  left:0; right:0; bottom:8px;
-  display:flex; justify-content:center; gap:6px;
-  z-index:2;
-}
-.carousel__dots button{
-  width:8px; height:8px;
-  border-radius:50%;
-  border:0;
-  background:rgba(255,255,255,.55);
-  cursor:pointer;
-  transition:transform .15s ease, background .2s ease;
-}
-.carousel__dots button.is-active{
-  background:#17d37e;        /* cor de destaque */
-  transform:scale(1.2);
-}
-
-/* =======================
-   VARIAÇÃO DO #2 (Manutenção)
-   - leve ajuste de contraste em seção escura
-   ======================= */
-.carousel-02 .carousel__btn{
-  background:rgba(0,0,0,.40);  /* um pouco mais translúcido */
-}
-.section--alt .carousel-02 .carousel__dots button{
-  background:rgba(255,255,255,.65); /* dots mais visíveis no fundo verde */
-}
-
 
 
 .icones-servico{ width:120px; height:auto;
@@ -379,10 +294,9 @@ details[open] summary::after{transform:rotate(45deg)}
 }
 
 @media (max-width: 700px){
-  .grid--5 { grid-template-columns: repeat(2, 1fr)}
+  .grid--5 { grid-template-columns: repeat(2, 2fr)}
   .contato__grid{ grid-template-columns: 1fr; }
   .contato__map{ aspect-ratio: 16 / 12; }
-  .carousel__btn{ width:32px; height:32px; font-size:20px; }
 }
 
 @media (max-width: 500px){
