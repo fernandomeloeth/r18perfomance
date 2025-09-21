@@ -43,35 +43,45 @@ document.querySelectorAll('.section, .card, .service').forEach(el => {
 });
 
 
-// ===== Carrossel (múltiplas instâncias, com diagnóstico) =====
+// ===== Carrossel (múltiplas instâncias, robusto e com .carousel-02) =====
 (function initCarousels(){
-  const carousels = Array.from(document.querySelectorAll('[data-carousel]'));
-  console.log('[Carrossel] encontrados:', carousels.length);
+  const roots = Array.from(document.querySelectorAll('[data-carousel]'));
+  console.log('[Carrossel] encontrados:', roots.length);
+  roots.forEach(root => setupCarousel(root));
 
-  carousels.forEach((root, idx) => {
-    console.log(`- Carrossel #${idx+1}`, root);
+  function setupCarousel(root){
+    // evita dupla inicialização
+    if (root.__carouselInited) return;
+    root.__carouselInited = true;
 
-    const slides = Array.from(root.querySelectorAll('.carousel__slide'));
-    const btnPrev = root.querySelector('.carousel__btn.prev');
-    const btnNext = root.querySelector('.carousel__btn.next');
     const dotsWrap = root.querySelector('.carousel__dots');
+    const btnPrev  = root.querySelector('.carousel__btn.prev');
+    const btnNext  = root.querySelector('.carousel__btn.next');
 
-    // filtra imagens quebradas
-    const validSlides = slides.filter(img => {
-      // se a imagem falhar, este evento dispara
+    // limpa dots anteriores (se houver reinicialização)
+    while (dotsWrap.firstChild) dotsWrap.removeChild(dotsWrap.firstChild);
+
+    // coleta slides atuais e remove os que já marcaram erro
+    let slides = Array.from(root.querySelectorAll('.carousel__slide')).filter(s => !s.dataset.bad);
+    if (!slides.length) return;
+
+    // garante um ativo
+    let index = Math.max(0, slides.findIndex(s => s.classList.contains('is-active')));
+    slides.forEach((s,i)=> s.classList.toggle('is-active', i===index));
+
+    // listeners de erro: se alguma imagem falhar, marca e re-inicia este carrossel
+    slides.forEach(img => {
       img.addEventListener('error', () => {
-        console.error('[Carrossel] imagem não encontrada:', img.src);
-        img.remove(); // remove slide inválido
-      }, { once: true });
-      return true;
+        console.error('[Carrossel] imagem não encontrada:', img.getAttribute('src'));
+        img.dataset.bad = '1';
+        img.remove();
+        root.__carouselInited = false; // permite reinicializar
+        setupCarousel(root);           // reinicia só este
+      }, { once:true });
     });
 
-    if (validSlides.length < 2) {
-      console.warn('[Carrossel] menos de 2 slides. Não haverá transição.', validSlides);
-    }
-
     // cria dots
-    const dots = validSlides.map((_, i) => {
+    const dots = slides.map((_, i) => {
       const b = document.createElement('button');
       b.setAttribute('aria-label', `Ir para o slide ${i+1}`);
       dotsWrap.appendChild(b);
@@ -79,20 +89,21 @@ document.querySelectorAll('.section, .card, .service').forEach(el => {
       return b;
     });
 
-    let index = Math.max(0, validSlides.findIndex(s => s.classList.contains('is-active')));
-    if (index < 0) index = 0;
     update();
 
     // setas
-    btnPrev?.addEventListener('click', () => goTo(index - 1));
-    btnNext?.addEventListener('click', () => goTo(index + 1));
+    btnPrev?.addEventListener('click', prev);
+    btnNext?.addEventListener('click', next);
 
-    // autoplay com pausa no hover
+    // autoplay — .carousel-02 usa intervalo diferente
+    const isCarousel02 = root.classList.contains('carousel-02');
+    const AUTOPLAY_MS  = isCarousel02 ? 5000 : 4000;
+
     let timer = startAutoplay();
     root.addEventListener('mouseenter', stopAutoplay);
     root.addEventListener('mouseleave', () => timer = startAutoplay());
 
-    // swipe no mobile
+    // swipe para mobile
     let startX = 0, deltaX = 0;
     root.addEventListener('touchstart', e => { startX = e.touches[0].clientX; deltaX = 0; }, {passive:true});
     root.addEventListener('touchmove',  e => { deltaX = e.touches[0].clientX - startX; }, {passive:true});
@@ -100,14 +111,20 @@ document.querySelectorAll('.section, .card, .service').forEach(el => {
 
     function prev(){ goTo(index - 1); }
     function next(){ goTo(index + 1); }
-    function goTo(i){ index = (i + validSlides.length) % validSlides.length; update(); }
-
-    function update(){
-      validSlides.forEach((s, i) => s.classList.toggle('is-active', i === index));
-      dots.forEach((d, i)        => d.classList.toggle('is-active', i === index));
+    function goTo(i){
+      // se sobraram <2 slides, só mantemos o atual
+      slides = Array.from(root.querySelectorAll('.carousel__slide')).filter(s=>!s.dataset.bad);
+      if (slides.length < 2) { index = 0; update(); return; }
+      index = (i + slides.length) % slides.length;
+      update();
     }
 
-    function startAutoplay(){ stopAutoplay(); return setInterval(next, 4000); }
+    function update(){
+      slides.forEach((s, i) => s.classList.toggle('is-active', i === index));
+      dots.forEach((d, i)   => d.classList.toggle('is-active', i === index));
+    }
+
+    function startAutoplay(){ stopAutoplay(); return setInterval(next, AUTOPLAY_MS); }
     function stopAutoplay(){ if (timer) clearInterval(timer); }
-  });
+  }
 })();
