@@ -89,6 +89,18 @@ a{color:inherit; text-decoration:none}
 .card.service {  transition: transform 0.25s ease, box-shadow 0.25s ease; }
 .card.service:hover {  transform: translateY(-6px) scale(1.02); }
 
+/* Aplica margem maior nas colunas de imagem das sessões específicas */
+#sobre .card--photo,
+#sistema-eletrico .card--photo {
+  margin-left: 20px;   /* dá mais respiro do texto à esquerda */
+  margin-right: 0;     /* mantém alinhado à direita do container */
+}
+
+#manutencao-preparo-motor .card--photo {
+  margin-left: 0px;   /* dá mais respiro do texto à esquerda */
+  margin-right: 20px;     /* mantém alinhado à direita do container */
+}
+
 /* Alinhar imagem com a borda esquerda do container
    e com o título da seção (remove a margem padrão do <figure>) */
 #manutencao-preparo-motor figure,
@@ -305,6 +317,42 @@ details[open] summary::after{transform:rotate(45deg)}
 .fab-whatsapp:hover{transform:translateY(-2px)}
 .fab-whatsapp img{width:28px; height:28px; filter:drop-shadow(0 2px 4px rgba(0,0,0,.25))}
 
+/* =========================
+   Tipografia fluida (base)
+   ========================= */
+#sobre h2,
+#manutencao-preparo-motor h2,
+#sistema-eletrico h2 {
+  font-size: clamp(22px, 2.6vw, 34px);
+  line-height: 1.2;
+}
+
+#sobre p,
+#manutencao-preparo-motor p,
+#sistema-eletrico p,
+#sobre li,
+#manutencao-preparo-motor li,
+#sistema-eletrico li {
+  font-size: clamp(14px, 1.3vw, 17px);
+  line-height: 1.65;
+  max-width: 65ch;        /* boa largura de leitura em desktop */
+}
+
+#sobre .list-check li,
+#manutencao-preparo-motor .list-check li,
+#sistema-eletrico .list-check li {
+  padding-left: 26px;     /* mantém o check alinhado */
+}
+
+/* dá um respiro consistente entre blocos de texto */
+#sobre p + p,
+#manutencao-preparo-motor p + p,
+#sistema-eletrico p + p {
+  margin-top: 10px;
+}
+
+
+
 /* Responsivo */
 @media (max-width: 1200px) {
   .grid--5 { grid-template-columns: repeat(4, 1fr); }
@@ -327,11 +375,23 @@ details[open] summary::after{transform:rotate(45deg)}
   .grid--5 { grid-template-columns: repeat(2, 2fr)}
   .contato__grid{ grid-template-columns: 1fr; }
   .contato__map{ aspect-ratio: 16 / 12; }
+  #sobre .card--photo,
+  #manutencao-preparo-motor .card--photo,
+  #sistema-eletrico .card--photo {
+    margin: 0 auto;        /* centraliza */
+    max-width: 100%;        /* respeita a largura padrão do container */
+  }
 }
 
 @media (max-width: 500px){
   .grid--1{grid-template-columns:1fr}
   .grid--5 { grid-template-columns: 1fr; }
+  #sobre .card--photo,
+  #manutencao-preparo-motor .card--photo,
+  #sistema-eletrico .card--photo {
+    margin: 0 auto;
+    max-width: 100%;        /* dá um pouco mais de respiro */
+  }
 }
 
 .reveal{opacity:0; transform:translateY(8px); transition:opacity .5s ease, transform .5s ease}
