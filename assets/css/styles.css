@@ -28,7 +28,7 @@ a{color:inherit; text-decoration:none}
   background:rgba(255, 255, 255, 1); backdrop-filter:saturate(140%) blur(10px);
   border-bottom:1px solid var(--stroke);
 }
-.header__inner{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 0}
+.header__inner{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:12px 0}
 .brand{display:flex; gap:10px; align-items:center; font-weight:700}
 .brand__logo{width:130px; height:auto; }
 .brand__name{letter-spacing:.3px}
@@ -39,61 +39,39 @@ a{color:inherit; text-decoration:none}
   font-weight: 700;           /* deixa em negrito */
   padding: 8px 5px;
   border-radius: 10px;
-  transition: background .2s ease, transform .2s ease, color .2s ease;
-}
+  transition: background .2s ease, transform .2s ease, color .2s ease;}
 
 .nav a:hover {
   background: #e5e5e5b9;        /* fundo cinza ao passar o mouse */
   color: #353535ff;                /* texto preto */
-  transform: translateY(-1px);
-}
+  transform: translateY(-1px);}
 
 /* mobile menu */
 .nav__toggle{display:none; background:transparent; border:0; width:40px; height:40px}
 .nav__toggle span{display:block; height:2px; background:#111; margin:7px 6px}
 
 
-.hero--cover{
-    padding:160px 0 160px; display: flex;  align-items: center;  background:    linear-gradient(0deg, rgba(0,0,0,.35), rgba(0,0,0,.35)),    url("../img/capa-r18.jpg") center/cover no-repeat;
-}
+.hero--cover{    padding:160px 0 160px; display: flex;  align-items: center;  background:    linear-gradient(0deg, rgba(0,0,0,.35), rgba(0,0,0,.35)),    url("../img/capa-r18.jpg") center/cover no-repeat; }
 
-.hero__content{
-  width: 76%;  display: flex;  justify-content: flex-end; /* joga para direita */
-}
+.hero__content{  width: 83%;  display: flex;  justify-content: flex-end; /* joga para direita */ }
 
-.hero__box{
-  max-width: 1000px;  background: rgba(0,0,0,.55); /* caixa preta translúcida */
-  padding: 15px;  border-radius: 12px;  color: #fff;  text-align: left;
-}
+.hero__box{  max-width: 1000px;  background: rgba(0,0,0,.55); /* caixa preta translúcida */
+  padding: 15px;  border-radius: 12px;  color: #fff;  text-align: left; }
 
-.hero__box h1{
-  font-size: clamp(24px, 4vw, 40px);  line-height: 1.2;  margin: 0 0 20px;
-}
+.hero__box h1{  font-size: clamp(24px, 4vw, 40px);  line-height: 1.2;  margin: 0 0 20px; }
 
-.hero__cta{
-  display: flex;  gap: 14px;  flex-wrap: wrap;
-}
+.hero__cta{  display: flex;  gap: 14px;  flex-wrap: wrap; }
 
-.btn{
-  display:inline-block;  padding: 12px 18px;  border-radius: 8px;  font-weight: 600;
-  text-decoration:none;  transition:.2s ease;
-}
+.btn{  display:inline-block;  padding: 12px 18px;  border-radius: 8px;  font-weight: 600;
+  text-decoration:none;  transition:.2s ease; }
 
-.btn--primary{
-  background: #25D366;  color: #fff;
-}
+.btn--primary{  background: #25D366;  color: #fff; }
 
-.btn--primary:hover{
-  background: #1da955;
-}
+.btn--primary:hover{  background: #1da955; }
 
-.btn--ghost{
-  border:1px solid #929292ff;  color: #fff;
-}
+.btn--ghost{  border:1px solid #929292ff;  color: #fff; }
 
-.btn--ghost:hover{
-  background: #161616ff;  color: #fff;
-}
+.btn--ghost:hover{  background: #161616ff;  color: #fff; }
 
 .section{color: #000000da;padding:40px 0}
 .section{background: #ffffffff; border-top:4px solid var(--stroke); border-bottom:4px solid var(--stroke)}
@@ -101,19 +79,72 @@ a{color:inherit; text-decoration:none}
 .section--alt{color: #ffffffff;padding:40px 0}
 .section--alt{background: #006837b0; border-top:1px solid var(--stroke); border-bottom:1px solid var(--stroke)}
 
-.grid{display:grid; gap:26px}
+.grid{display:grid; gap:16px}
 .grid--2{grid-template-columns:1fr 1fr}
 .grid--5 {  display: grid; grid-template-columns: repeat(5, 1fr);  gap: 30px;}
 
 .card{background: #ffffffff; border:0px solid var(--stroke); border-radius:16px; box-shadow:var(--shadow)}
 .card--photo img{border-radius:16px; border:0px solid var(--stroke)}
 .cards{gap:20px}
-.card.service {  transition: transform 0.25s ease, box-shadow 0.25s ease;
+.card.service {  transition: transform 0.25s ease, box-shadow 0.25s ease; }
+.card.service:hover {  transform: translateY(-6px) scale(1.02); }
+
+/* Alinhar imagem com a borda esquerda do container
+   e com o título da seção (remove a margem padrão do <figure>) */
+#manutencao-preparo-motor figure,
+#sistema-eletrico        figure {
+  margin: 0;             /* zera margin-left/right/top do <figure> */
 }
 
-.card.service:hover {  transform: translateY(-6px) scale(1.02);
+/* Garante que imagem e título comecem na mesma linha do grid */
+.grid--2 {
+  align-items: start;     /* alinha os itens pelo topo */
 }
 
+/* Mantém o estilo do card de foto nessas seções,
+   sem “empurrar” nada para baixo */
+#manutencao-preparo-motor .card--photo,
+#sistema-eletrico        .card--photo {
+  align-self: start;      /* encosta no topo da coluna (altura do h2) */
+  padding: 0;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+/* Imagem ocupa o card inteiro, sem deformar */
+#manutencao-preparo-motor .card--photo img,
+#sistema-eletrico        .card--photo img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+/* (Opcional) remove qualquer margem superior de títulos nas seções
+   para evitar “pulinho” entre sessões distintas */
+#manutencao-preparo-motor h2,
+#sistema-eletrico h2 {
+  margin-top: 50;
+}
+
+/* Adiciona margem superior às imagens das seções específicas */
+#manutencao-preparo-motor .card--photo,
+#sistema-eletrico .card--photo {
+  margin-top: 40px;
+}
+
+/* === Sobre: garante que a imagem fique alinhada à direita === */
+
+
+#sobre figure {
+  margin: 0;                     /* remove margens padrão do <figure> */
+  display: flex;
+  justify-content: flex-end;     /* força alinhamento à direita */
+}
+
+#sobre .card--photo {
+  margin-top: 40px;              /* mantém consistência com outras sessões */
+}
 
 
 .icones-servico{ width:120px; height:auto;
@@ -296,8 +327,6 @@ details[open] summary::after{transform:rotate(45deg)}
   .grid--5 { grid-template-columns: repeat(2, 2fr)}
   .contato__grid{ grid-template-columns: 1fr; }
   .contato__map{ aspect-ratio: 16 / 12; }
-    .carousel__btn{ width:32px; height:32px; font-size:20px; }
-
 }
 
 @media (max-width: 500px){
