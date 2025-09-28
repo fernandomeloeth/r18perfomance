@@ -447,7 +447,15 @@ details[open] summary::after{transform:rotate(45deg)}
     margin: 0 auto;
     max-width: 100%;        /* dá um pouco mais de respiro */
   }
-
+ .service h3 br { 
+    display: none;          /* remove a quebra forçada */
+  }
+  .service h3 {
+    white-space: nowrap;    /* impede nova quebra */
+    overflow: hidden;       /* evita estourar o card */
+    text-overflow: ellipsis;/* coloca "..." se ficar muito longo */
+    text-align: center;
+  }
 
 }
 
