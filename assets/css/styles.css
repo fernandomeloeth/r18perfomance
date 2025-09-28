@@ -195,6 +195,8 @@ summary::after{content:'+'; float:right; transition:transform .2s}
 details[open] summary::after{transform:rotate(45deg)}
 
 /* Carrossel em faixa (altura fixa 350px) */
+/* Carrossel padrão */
+
 .ribbon-carousel{
   position: relative;
   width: 100%;
@@ -445,6 +447,8 @@ details[open] summary::after{transform:rotate(45deg)}
     margin: 0 auto;
     max-width: 100%;        /* dá um pouco mais de respiro */
   }
+
+
 }
 
 .reveal{opacity:0; transform:translateY(8px); transition:opacity .5s ease, transform .5s ease}
