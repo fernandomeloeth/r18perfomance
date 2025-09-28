@@ -40,3 +40,36 @@ document.querySelectorAll('.section, .card, .service').forEach(el => {
   el.classList.add('reveal');
   io.observe(el);
 });
+
+// ===== Carrossel em faixa (múltiplas imagens por “pulo”) =====
+(function initRibbonCarousel(){
+  document.querySelectorAll('.ribbon-carousel').forEach(setup);
+
+  function setup(root){
+    const viewport = root.querySelector('.ribbon__viewport');
+    const btnPrev  = root.querySelector('.ribbon__btn.prev');
+    const btnNext  = root.querySelector('.ribbon__btn.next');
+
+    // passo ~ 90% da largura visível (mostra “tela” seguinte)
+    const STEP = () => Math.max( viewport.clientWidth * 0.9, 320 );
+
+    btnNext?.addEventListener('click', () => viewport.scrollBy({ left:  STEP(), behavior: 'smooth' }));
+    btnPrev?.addEventListener('click', () => viewport.scrollBy({ left: -STEP(), behavior: 'smooth' }));
+
+    // drag com mouse / swipe no touch
+    let isDown = false, startX = 0, startScroll = 0;
+    viewport.addEventListener('mousedown', e => { isDown = true; startX = e.pageX; startScroll = viewport.scrollLeft; });
+    window.addEventListener('mouseup',   () => { isDown = false; });
+    viewport.addEventListener('mousemove', e => {
+      if (!isDown) return;
+      viewport.scrollLeft = startScroll - (e.pageX - startX);
+    });
+
+    viewport.addEventListener('touchstart', e => {
+      startX = e.touches[0].clientX; startScroll = viewport.scrollLeft;
+    }, {passive:true});
+    viewport.addEventListener('touchmove', e => {
+      viewport.scrollLeft = startScroll - (e.touches[0].clientX - startX);
+    }, {passive:true});
+  }
+})();
