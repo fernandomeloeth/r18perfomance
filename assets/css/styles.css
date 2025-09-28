@@ -10,13 +10,14 @@
   --shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
 }
 
-
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
   margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial;
   color:var(--text); background:var(--bg);
   line-height:1.6;
+  overflow-x: hidden; /* 🔥 remove scroll lateral */
+  width: 100%;
 }
 
 img{max-width:100%; display:block}
@@ -36,444 +37,158 @@ a{color:inherit; text-decoration:none}
 .nav{display:flex; gap:18px; align-items:center}
 .nav a {
   color: #004d48de;
-  font-weight: 700;           /* deixa em negrito */
+  font-weight: 700;
   padding: 8px 5px;
   border-radius: 10px;
   transition: background .2s ease, transform .2s ease, color .2s ease;}
 
 .nav a:hover {
-  background: #e5e5e5b9;        /* fundo cinza ao passar o mouse */
-  color: #353535ff;                /* texto preto */
+  background: #e5e5e5b9;
+  color: #353535ff;
   transform: translateY(-1px);}
 
-/* mobile menu */
 .nav__toggle{display:none; background:transparent; border:0; width:40px; height:40px}
 .nav__toggle span{display:block; height:2px; background:#111; margin:7px 6px}
 
+.hero--cover{
+  padding:160px 0 160px; display: flex;  align-items: center;
+  background: linear-gradient(0deg, rgba(0,0,0,.35), rgba(0,0,0,.35)), url("../img/capa-r18.jpg") center/cover no-repeat;
+}
 
-.hero--cover{    padding:160px 0 160px; display: flex;  align-items: center;  background:    linear-gradient(0deg, rgba(0,0,0,.35), rgba(0,0,0,.35)),    url("../img/capa-r18.jpg") center/cover no-repeat; }
-
-.hero__content{  width: 83%;  display: flex;  justify-content: flex-end; /* joga para direita */ }
-
-.hero__box{  max-width: 1000px;  background: rgba(0,0,0,.55); /* caixa preta translúcida */
+.hero__content{  width: 83%;  display: flex;  justify-content: flex-end; }
+.hero__box{  max-width: 1000px;  background: rgba(0,0,0,.55);
   padding: 15px;  border-radius: 12px;  color: #fff;  text-align: left; }
-
 .hero__box h1{  font-size: clamp(24px, 4vw, 40px);  line-height: 1.2;  margin: 0 0 20px; }
 
-.hero__cta{  display: flex;  gap: 14px;  flex-wrap: wrap; }
+.hero__cta{display: flex;  gap: 14px;  flex-wrap: wrap;}
+.btn{display:inline-block; padding: 10px 10px; border-radius: 8px; font-weight: 600; text-decoration:none; transition:.2s ease;}
+.btn--primary{background: #25D366;  color: #fff;}
+.btn--primary:hover{background: #1da955;}
+.btn--ghost{border:1px solid #929292ff;  color: #fff;}
+.btn--ghost:hover{background: #161616ff;  color: #fff;}
 
-.btn{  display:inline-block;  padding: 10px 10px;  border-radius: 8px;  font-weight: 600;
-  text-decoration:none;  transition:.2s ease; }
-
-.btn--primary{  background: #25D366;  color: #fff; }
-
-.btn--primary:hover{  background: #1da955; }
-
-.btn--ghost{  border:1px solid #929292ff;  color: #fff; }
-
-.btn--ghost:hover{  background: #161616ff;  color: #fff; }
-
-.section{color: #000000da;padding:40px 0}
-.section{background: #ffffffff; border-top:4px solid var(--stroke); border-bottom:4px solid var(--stroke)}
-.section-{background: #ffffffff; border-top:4px solid var(--stroke); border-bottom:4px solid var(--stroke)}
-.section--alt{color: #ffffffff;padding:40px 0}
-.section--alt{background: #006837b0; border-top:1px solid var(--stroke); border-bottom:1px solid var(--stroke)}
+.section{color: #000000da;padding:40px 0; background:#fff; border-top:4px solid var(--stroke); border-bottom:4px solid var(--stroke)}
+.section--alt{color: #ffffffff;padding:40px 0; background:#006837b0; border-top:1px solid var(--stroke); border-bottom:1px solid var(--stroke)}
 
 .grid{display:grid; gap:16px}
 .grid--2{grid-template-columns:1fr 1fr}
-.grid--5 {  display: grid; grid-template-columns: repeat(5, 1fr);  gap: 30px;}
+.grid--5{display:grid; grid-template-columns:repeat(5,1fr); gap:30px;}
 
-.card{background: #ffffffff; border:0px solid var(--stroke); border-radius:16px; box-shadow:var(--shadow)}
-.card--photo img{border-radius:16px; border:0px solid var(--stroke)}
+.card{background:#fff; border:0; border-radius:16px; box-shadow:var(--shadow)}
+.card--photo img{border-radius:16px;}
 .cards{gap:20px}
-.card.service {  transition: transform 0.25s ease, box-shadow 0.25s ease; }
-.card.service:hover {  transform: translateY(-6px) scale(1.02); }
+.card.service {transition: transform 0.25s ease, box-shadow 0.25s ease;}
+.card.service:hover {transform: translateY(-6px) scale(1.02);}
 
-/* Aplica margem maior nas colunas de imagem das sessões específicas */
-#sobre .card--photo,
-#sistema-eletrico .card--photo {
-  margin-left: 20px;   /* dá mais respiro do texto à esquerda */
-  margin-right: 0;     /* mantém alinhado à direita do container */
+#sobre .card--photo, #sistema-eletrico .card--photo { margin-left:20px; margin-right:0;}
+#manutencao-preparo-motor .card--photo { margin-left:0; margin-right:20px;}
+
+.grid--2 { align-items:start; }
+#manutencao-preparo-motor .card--photo, #sistema-eletrico .card--photo {
+  align-self:start; padding:0; border-radius:16px; overflow:hidden;
 }
+#manutencao-preparo-motor .card--photo img, #sistema-eletrico .card--photo img {width:100%; height:auto; object-fit:cover;}
+#manutencao-preparo-motor h2, #sistema-eletrico h2 { margin-top:50px; }
+#manutencao-preparo-motor .card--photo, #sistema-eletrico .card--photo { margin-top:40px;}
 
-#manutencao-preparo-motor .card--photo {
-  margin-left: 0px;   /* dá mais respiro do texto à esquerda */
-  margin-right: 20px;     /* mantém alinhado à direita do container */
-}
+#sobre figure{margin:0; display:flex; justify-content:flex-end;}
+#sobre .card--photo { margin-top:40px;}
 
-/* Alinhar imagem com a borda esquerda do container
-   e com o título da seção (remove a margem padrão do <figure>) */
-#manutencao-preparo-motor figure,
-#sistema-eletrico        figure {
-  margin: 0;             /* zera margin-left/right/top do <figure> */
-}
-
-/* Garante que imagem e título comecem na mesma linha do grid */
-.grid--2 {
-  align-items: start;     /* alinha os itens pelo topo */
-}
-
-/* Mantém o estilo do card de foto nessas seções,
-   sem “empurrar” nada para baixo */
-#manutencao-preparo-motor .card--photo,
-#sistema-eletrico        .card--photo {
-  align-self: start;      /* encosta no topo da coluna (altura do h2) */
-  padding: 0;
-  border-radius: 16px;
-  overflow: hidden;
-}
-
-/* Imagem ocupa o card inteiro, sem deformar */
-#manutencao-preparo-motor .card--photo img,
-#sistema-eletrico        .card--photo img {
-  width: 100%;
-  height: auto;
-  display: block;
-  object-fit: cover;
-}
-
-/* (Opcional) remove qualquer margem superior de títulos nas seções
-   para evitar “pulinho” entre sessões distintas */
-#manutencao-preparo-motor h2,
-#sistema-eletrico h2 {
-  margin-top: 50;
-}
-
-/* Adiciona margem superior às imagens das seções específicas */
-#manutencao-preparo-motor .card--photo,
-#sistema-eletrico .card--photo {
-  margin-top: 40px;
-}
-
-/* === Sobre: garante que a imagem fique alinhada à direita === */
-
-#sobre figure {
-  margin: 0;                     /* remove margens padrão do <figure> */
-  display: flex;
-  justify-content: flex-end;     /* força alinhamento à direita */
-}
-
-#sobre .card--photo {
-  margin-top: 40px;              /* mantém consistência com outras sessões */
-}
-
-
-.icones-servico{ width:120px; height:auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;     /* centraliza horizontal */
-  justify-content: center; /* centraliza vertical */
-  text-align: center;      /* texto centralizado */
-  margin: 0 0 20px;
-  
-}
-.service{ display: flex;
-  flex-direction: column;
-  align-items: center;     /* centraliza horizontal */
-  justify-content: flex-start; /* mantém os itens de cima para baixo */
-  text-align: center;
-  margin:0 0 50px; text-align: center; padding: 15px}
-.service h3{color: #000000da; margin:0 0 5 0px}
-.service p{margin:0 0 0px; color: #141414ff}
+.icones-servico{ width:120px; height:auto; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; margin:0 0 20px;}
+.service{ display:flex; flex-direction:column; align-items:center; text-align:center; margin:0 0 50px; padding:15px}
+.service h3{color:#000; margin:0 0 5px;}
+.service p{margin:0; color:#141414ff}
 
 .list-check{padding-left:0; list-style:none; margin:14px 0 0}
 .list-check li{position:relative; padding-left:26px; margin:8px 0}
-.list-check li::before{
-  content:'✔'; position:absolute; left:0; top:0; opacity:.9;
-  color:var(--brand-2); transform:translateY(2px);
-}
+.list-check li::before{content:'✔'; position:absolute; left:0; top:0; opacity:.9; color:var(--brand-2); transform:translateY(2px);}
 
 .accordion__group{margin:18px 0 26px}
-details{
-  background:var(--card); border:1px solid var(--stroke); border-radius:5px; padding:12px 15px; margin:10px 0;
-  transition:transform .2s ease, border-color .2s ease;
-}
+details{background:var(--card); border:1px solid var(--stroke); border-radius:5px; padding:12px 15px; margin:10px 0; transition:transform .2s ease, border-color .2s ease;}
 details[open]{transform:translateY(-1px); border-color:#2e3a5c}
 summary{cursor:pointer; font-weight:600; margin:-4px 0 0px}
 summary::-webkit-details-marker{display:none}
 summary::after{content:'+'; float:right; transition:transform .2s}
 details[open] summary::after{transform:rotate(45deg)}
 
-/* Carrossel em faixa (altura fixa 350px) */
-/* Carrossel padrão */
+/* Carrossel em faixa */
+.ribbon-carousel{position:relative; width:100%; padding-top:4px; background:#283046; overflow:hidden;}
+.ribbon__viewport{overflow:hidden; width:100%;}
+.ribbon__track{display:flex; align-items:center; gap:5px; height:350px;}
+.ribbon__item{height:350px; width:auto; object-fit:cover; flex:0 0 auto;}
+.ribbon__btn{position:absolute; top:50%; transform:translateY(-50%); border:0; width:42px; height:42px; border-radius:50%; background:rgba(0,0,0,.5); color:#fff; font-size:22px; cursor:pointer; z-index:5;}
+.ribbon__btn:hover{filter:brightness(1.2);}
+.ribbon__btn.prev{left:12px;}
+.ribbon__btn.next{right:12px;}
 
-.ribbon-carousel{
-  position: relative;
-  width: 100%;
-  padding-top: 4px;
-  background: #283046;          /* opcional: fundo para “moldurar” fotos */
-  overflow: hidden;
-}
+/* Contato */
+.contato__grid{display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:start;}
+#contato {background:#f0f0f0ff; color:#000000da; padding:40px 0;}
+.pill{display:inline-block; padding:8px 14px; border-radius:999px; background:#fff; border:1px solid #e6e6e6; box-shadow:0 2px 8px rgba(0,0,0,.06); color:#111; font-weight:700; letter-spacing:.5px; margin-bottom:14px;}
+.contato__label{margin:18px 0 6px; font-weight:700; color:#111;}
+.contato__field{margin:0 0 8px; color:#222;}
+.contato__field a{color:#111; text-decoration:underline;}
+.contato__maplink{display:inline-block; margin-top:6px; font-size:14px;}
+.btn.btn--whats{display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:10px 16px; border-radius:20px; background:#25D366; color:#fff; font-weight:700; border:0; box-shadow:0 6px 18px rgba(37,211,102,.25); transition:transform .15s ease, filter .2s ease; margin-top:12px;}
+.btn.btn--whats:hover{transform:translateY(-1px); filter:brightness(1.05);}
+.contato__map{width:100%; aspect-ratio:16/11; background:#f2f2f2; border-radius:12px; overflow:hidden; border:1px solid #e6e6e6;}
+.contato__map iframe{width:100%; height:100%; border:0;}
 
-.ribbon__viewport{
-  overflow: hidden;          /* esconde o que “passa” nas laterais */
-  width: 100%;
-}
-
-.ribbon__track{
-  display: flex;
-  align-items: center;
-  gap: 5px;                 /* espaço entre fotos */
-  height: 350px;             /* *** altura fixa pedida *** */
-  will-change: transform;    /* mais suave */
-}
-
-.ribbon__item{
-  height: 350px;             /* *** todas as imagens com a MESMA altura *** */
-  width: auto;               /* largura se adapta ao aspecto da foto */
-  object-fit: cover;         /* preenche sem distorcer */
-  flex: 0 0 auto;            /* impede encolher/esticar na faixa */
-  display: block;
-}
-
-/* Botões */
-.ribbon__btn{
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  border: 0;
-  width: 42px; height: 42px;
-  border-radius: 50%;
-  background: rgba(0,0,0,.5);
-  color: #fff;
-  font-size: 22px;
-  cursor: pointer;
-  z-index: 5;
-  transition: filter .2s ease;
-}
-.ribbon__btn:hover{ filter: brightness(1.2); }
-.ribbon__btn.prev{ left: 12px; }
-.ribbon__btn.next{ right: 12px; }
-
-/* Responsivo: mantém a altura 350px em todas as telas
-   (se quiser menor no mobile, troque para 280px em @media) */
-
-
-
-/* layout */
-.contato__grid{
-  display:grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 28px;
-  align-items:start;
-}
-
-#contato {
-  background: #f0f0f0ff;        /* fundo preto */
-  color: #000000da;          /* texto claro */
-  padding: 40px 0;
-}
-
-/* pílula ENDEREÇO */
-.pill{
-  display:inline-block;
-  padding:8px 14px;
-  border-radius:999px;
-  background:#fff;
-  border:1px solid #e6e6e6;
-  box-shadow:0 2px 8px rgba(0,0,0,.06);
-  color:#111;
-  font-weight:700;
-  letter-spacing:.5px;
-  margin-bottom:14px;
-}
-
-/* textos */
-.contato__label{
-  margin:18px 0 6px;
-  font-weight:700;
-  color:#111;
-}
-.contato__field{
-  margin:0 0 8px;
-  color:#222;
-}
-.contato__field a{ color:#111; text-decoration:underline; }
-.contato__maplink{ display:inline-block; margin-top:6px; font-size:14px; }
-
-/* botão WhatsApp */
-.btn.btn--whats{
-  display:inline-flex; align-items:center; justify-content:center;
-  gap:8px; padding:10px 16px; border-radius:20px;
-  background:#25D366; color: #fff; font-weight:700;
-  border:0; box-shadow:0 6px 18px rgba(37,211,102,.25);
-  transition:transform .15s ease, filter .2s ease;
-  margin-top:12px;
-}
-.btn.btn--whats:hover{ transform:translateY(-1px); filter:brightness(1.05); }
-
-/* mapa responsivo */
-.contato__map{
-  width:100%;
-  aspect-ratio: 16 / 11;          /* controla a “altura” do mapa */
-  background:#f2f2f2;
-  border-radius:12px;
-  overflow:hidden;
-  border:1px solid #e6e6e6;
-}
-.contato__map iframe{
-  width:100%; height:100%; border:0;
-}
-
-
-.footer {
-  background: #111;
-  color: #eee;
-  padding: 20px 0;
-  font-size: 14px;
-  text-align: center;
-}
-
-.footer__inner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-}
-
-.footer__social {
-  display: flex;
-  gap: 16px;
-  justify-content: center;
-}
-
-.footer__social a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.2s ease, filter 0.2s ease;
-}
-
-.footer__social a:hover {
-  transform: translateY(-2px);
-  filter: brightness(1.2);
-}
-
-.social-icon {
-  width: 36px;
-  height: 36px;
-  display: block;
-}
-
-.footer__text {
-  line-height: 1.4;
-  color: #aaa;
-}
-
-.footer__text p {
-  margin: 0;
-}
-
-.fab-whatsapp{
-  position:fixed; right:18px; bottom:18px; width:56px; height:56px; border-radius:50%;
-  display:inline-grid; place-items:center; background:#25D366; box-shadow:var(--shadow);
-  transition:transform .15s ease;
-}
+.footer{background:#111; color:#eee; padding:20px 0; font-size:14px; text-align:center;}
+.footer__inner{display:flex; flex-direction:column; align-items:center; gap:12px;}
+.footer__social{display:flex; gap:16px; justify-content:center;}
+.footer__social a{display:inline-flex; align-items:center; justify-content:center; transition:transform .2s ease, filter .2s ease;}
+.footer__social a:hover{transform:translateY(-2px); filter:brightness(1.2);}
+.social-icon{width:36px; height:36px; display:block;}
+.footer__text{line-height:1.4; color:#aaa;}
+.footer__text p{margin:0;}
+.fab-whatsapp{position:fixed; right:18px; bottom:18px; width:56px; height:56px; border-radius:50%; display:inline-grid; place-items:center; background:#25D366; box-shadow:var(--shadow); transition:transform .15s ease;}
 .fab-whatsapp:hover{transform:translateY(-2px)}
 .fab-whatsapp img{width:28px; height:28px; filter:drop-shadow(0 2px 4px rgba(0,0,0,.25))}
 
-/* =========================
-   Tipografia fluida (base)
-   ========================= */
-#sobre h2,
-#manutencao-preparo-motor h2,
-#sistema-eletrico h2 {
+/* Tipografia fluida */
+#sobre h2, #manutencao-preparo-motor h2, #sistema-eletrico h2 {
   font-size: clamp(22px, 2.6vw, 34px);
   line-height: 1.2;
 }
-
-#sobre p,
-#manutencao-preparo-motor p,
-#sistema-eletrico p,
-#sobre li,
-#manutencao-preparo-motor li,
-#sistema-eletrico li {
+#sobre p, #manutencao-preparo-motor p, #sistema-eletrico p,
+#sobre li, #manutencao-preparo-motor li, #sistema-eletrico li {
   font-size: clamp(14px, 1.3vw, 17px);
   line-height: 1.65;
-  max-width: 65ch;        /* boa largura de leitura em desktop */
+  max-width: 65ch;
 }
-
-#sobre .list-check li,
-#manutencao-preparo-motor .list-check li,
-#sistema-eletrico .list-check li {
-  padding-left: 26px;     /* mantém o check alinhado */
-}
-
-/* dá um respiro consistente entre blocos de texto */
-#sobre p + p,
-#manutencao-preparo-motor p + p,
-#sistema-eletrico p + p {
-  margin-top: 10px;
-}
-
-
+#sobre .list-check li, #manutencao-preparo-motor .list-check li, #sistema-eletrico .list-check li {padding-left:26px;}
+#sobre p + p, #manutencao-preparo-motor p + p, #sistema-eletrico p + p {margin-top:10px;}
 
 /* Responsivo */
-@media (max-width: 1200px) {
-  .grid--5 { grid-template-columns: repeat(4, 1fr); }
-}
-
-@media (max-width: 900px){
+@media (max-width:1200px){.grid--5{grid-template-columns:repeat(4,1fr)}}
+@media (max-width:900px){
   .grid--2{grid-template-columns:1fr}
-  .grid--5 { grid-template-columns: repeat(3, 1fr)}
+  .grid--5{grid-template-columns:repeat(3,1fr)}
   .hero__inner{grid-template-columns:1fr; text-align:center}
   .nav{position:fixed; inset:60px 0 auto 0; background:#0f1115; padding:12px 4%; display:none; border-bottom:1px solid var(--stroke)}
   .nav.show{display:grid}
-  .nav a{    color: #fff;  }
-  .nav a:hover{    background: rgba(255,255,255,0.12);    color: #fff;  }
+  .nav a{color:#fff;}
+  .nav a:hover{background:rgba(255,255,255,0.12); color:#fff;}
   .nav__toggle{display:block}
- 
 }
-
-@media (max-width: 700px){
-  .grid--5 { grid-template-columns: repeat(2, 2fr)}
-  .contato__grid{ grid-template-columns: 1fr; }
-  .contato__map{ aspect-ratio: 16 / 12; }
-  #sobre .card--photo,
-  #manutencao-preparo-motor .card--photo,
-  #sistema-eletrico .card--photo {
-    margin: 0 auto;        /* centraliza */
-    max-width: 100%;        /* respeita a largura padrão do container */
-  }
-   #sistema-eletrico .container {
-    display: flex;            /* troca grid por flex no mobile */
-    flex-direction: column;   /* coloca em coluna */
-  }
-
-  #sistema-eletrico .card--photo {
-    order: -1;                /* sobe a imagem acima do texto */
-    margin-bottom: 20px;      /* dá um respiro abaixo da imagem */
-  }
+@media (max-width:700px){
+  .grid--5{grid-template-columns:repeat(2,1fr)}
+  .contato__grid{grid-template-columns:1fr}
+  .contato__map{aspect-ratio:16/12}
+  #sobre .card--photo, #manutencao-preparo-motor .card--photo, #sistema-eletrico .card--photo {margin:0 auto; max-width:100%;}
+  #sistema-eletrico .container{display:flex; flex-direction:column;}
+  #sistema-eletrico .card--photo{order:-1; margin-bottom:20px;}
 }
-
-@media (max-width: 500px){
+@media (max-width:500px){
   .grid--1{grid-template-columns:1fr}
-  .grid--5 { grid-template-columns: 1fr; }
-  #sobre .card--photo,
-  #manutencao-preparo-motor .card--photo,
-  #sistema-eletrico .card--photo {
-    margin: 0 auto;
-    max-width: 100%;        /* dá um pouco mais de respiro */
-  }
- .service h3 br { 
-    display: none;          /* remove a quebra forçada */
-  }
-  .service h3 {
-    white-space: nowrap;    /* impede nova quebra */
-    overflow: hidden;       /* evita estourar o card */
-    text-overflow: ellipsis;/* coloca "..." se ficar muito longo */
-    text-align: center;
-  }
- #sistema-eletrico .container {
-    display: flex;            /* troca grid por flex no mobile */
-    flex-direction: column;   /* coloca em coluna */
-  }
-
-  #sistema-eletrico .card--photo {
-    order: -1;                /* sobe a imagem acima do texto */
-    margin-bottom: 20px;      /* dá um respiro abaixo da imagem */
-  }
-
+  .grid--5{grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px;}
+  .cards>.card, .service{min-width:0;}
+  #sobre .card--photo, #manutencao-preparo-motor .card--photo, #sistema-eletrico .card--photo {margin:0 auto; max-width:100%;}
+  .service h3 br{display:none;}
+  .service h3{white-space:normal; overflow:hidden; overflow-wrap:anywhere; text-wrap:balance; text-align:center; margin:0 4px;}
+  #sistema-eletrico .container{display:flex; flex-direction:column;}
+  #sistema-eletrico .card--photo{order:-1; margin-bottom:20px;}
 }
 
 .reveal{opacity:0; transform:translateY(8px); transition:opacity .5s ease, transform .5s ease}
